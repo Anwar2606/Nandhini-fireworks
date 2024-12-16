@@ -455,7 +455,15 @@ const downloadAllCopies = (bill) => {
     // Save the final PDF with the invoice number
     doc.save(`Invoice_Copies_${bill.invoiceNumber}.pdf`);
   };
-  
+  const handleRemoveProduct = (productIndex) => {
+    const updatedProducts = updatedDetails.productsDetails.filter(
+      (_, index) => index !== productIndex
+    );
+    setUpdatedDetails((prevDetails) => ({
+      ...prevDetails,
+      productsDetails: updatedProducts,
+    }));
+  };
   return (
     <div className="edit-bill-page">
       <div className="main-container2">
@@ -669,6 +677,21 @@ const downloadAllCopies = (bill) => {
                         value={product.total || ""}
                         readOnly
                       />
+                      <button
+      type="button"
+      onClick={() => handleRemoveProduct(index)}
+      style={{
+        marginLeft: "10px",
+        padding: "5px 10px",
+        backgroundColor: "#ff4d4f",
+        color: "white",
+        border: "none",
+        borderRadius: "4px",
+        cursor: "pointer",
+      }}
+    >
+      Remove
+    </button>
                     </div>
                   ))}
                   <label>Total Amount:</label>

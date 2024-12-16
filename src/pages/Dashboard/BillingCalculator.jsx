@@ -156,11 +156,14 @@ const BillingCalculator = () => {
   // };
   const handleQuantityChange = (productId, quantity) => {
     const updatedCart = cart.map(item =>
-      item.productId === productId ? { ...item, quantity: parseInt(quantity, 10) } : item
+      item.productId === productId
+        ? { ...item, quantity: parseInt(quantity, 10) || 0 }
+        : item
     );
     setCart(updatedCart);
     updateBillingDetails(updatedCart);
   };
+  
   const updateBillingDetails = (updatedCart) => {
     const totalAmount = updatedCart.reduce((total, item) => {
       return total + (item.saleprice * item.quantity);
@@ -1211,15 +1214,16 @@ return productName.includes(term) || productCode.includes(term);
     console.log('Selected Date:', newSelectedDate);
     setSelectedDate(newSelectedDate);
   };
-  const handlePriceChange = (productId, newPrice) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.productId === productId
-          ? { ...item, saleprice: parseFloat(newPrice) || 0 }
-          : item
-      )
+  const handlePriceChange = (productId, saleprice) => {
+    const updatedCart = cart.map(item =>
+      item.productId === productId
+        ? { ...item, saleprice: parseFloat(saleprice) || 0 }
+        : item
     );
+    setCart(updatedCart);
+    updateBillingDetails(updatedCart);
   };
+  
  
 
 return (
@@ -1275,7 +1279,8 @@ return (
           <span>{item.name}</span>
           <input
   type="number"
-  value={item.quantity}
+  placeholder="Enter Quantity"
+  value={item.quantity || ""}
   onChange={(e) => handleQuantityChange(item.productId, e.target.value)}
   style={{
     width: '80px',

@@ -192,6 +192,7 @@ if (billDateStr === todayDate && data.totalAmount) {
                         }}>
                             {isOpen ? <FaArrowCircleLeft style={{ color: 'white' }} /> : <FaArrowAltCircleRight style={{ color: 'white' }} />}
                         </button>
+                        
                     </li>
                 </ul>
             </div>
