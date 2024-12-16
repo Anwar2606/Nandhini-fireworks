@@ -1,0 +1,185 @@
+/* src/components/MultipleProducts.css */
+
+/* Container for the two-column layout */
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 100px auto; /* Center the container horizontally and create space from the top */
+  width: 80%; /* Set the desired width percentage */
+  max-width: 1200px; /* Set a maximum width to prevent it from being too wide on large screens */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+  /* Styling for the form section */
+  .form-container {
+    width: 200%; /* Set width to full available width */
+    max-width: 5000px; /* Adjust this value to your desired width */
+    margin: 10 auto; /* Center the container horizontally */
+    padding: 20px; /* Optional padding for better spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better visual effect */
+    border-radius: 8px; /* Optional rounded corners */
+    background-color: #fff; /* Background color for the form container */
+  }
+  
+  /* Style the form inputs */
+  .form-container input,
+  .form-container button {
+    width: 100%; /* Make inputs and buttons full width of the container */
+    margin-bottom: 10px; /* Space between elements */
+    padding: 10px; /* Padding inside inputs and button */
+    border: 1px solid #ccc; /* Border color for inputs and button */
+    border-radius: 4px; /* Rounded corners for inputs and button */
+  }
+  
+  /* Style the submit button */
+  .form-container button {
+    background-color: #2575fc; /* Background color */
+    color: #fff; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem; /* Font size for the button text */
+  }
+  
+  /* Style the submit button on hover */
+  .form-container button:hover {
+    background-color: #1a5bb8; /* Darker background color on hover */
+  }
+  
+  /* Styling for the list section */
+/* Increase the width of the table container */
+.list-container {
+  width: 100%; /* Adjust this value to your desired width */
+  max-width: 1200px; /* Set a maximum width if needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Optional padding for better spacing */
+}
+
+/* Style the table */
+.list-container table {
+  width: 100%; /* Ensure the table takes the full width of the container */
+  border-collapse: collapse; /* Make borders between cells collapse into a single border */
+  margin-top: 20px; /* Optional margin on top of the table */
+}
+
+/* Style the table header */
+.list-container th {
+  background-color: #f4f4f4; /* Background color for table headers */
+  padding: 10px; /* Padding inside table headers */
+  text-align: left; /* Align text to the left in table headers */
+}
+
+/* Style the table cells */
+.list-container td {
+  padding: 10px; /* Padding inside table cells */
+  border: 1px solid #ddd; /* Border around each cell */
+}
+
+/* Style for product images inside the table */
+.product-image {
+  max-width: 100px; /* Adjust width as needed */
+  max-height: 100px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure image fits within the set dimensions */
+}
+
+  
+  /* Style for form rows */
+  .form-row {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for form headings */
+  form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Style for buttons */
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px; /* Rounded corners for a modern look */
+    padding: 12px 24px;
+    cursor: pointer;
+    margin: 10px 0;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover and active states */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slightly scale up button on hover */
+  }
+  
+  button:active {
+    transform: scale(0.98); /* Slightly scale down button on click */
+  }
+  
+  /* Style for input fields */
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    width: 100%;
+    max-width: 100%; /* Full width up to container size */
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in width calculation */
+    transition: border-color 0.3s ease; /* Smooth transition for focus effect */
+  }
+  
+  /* Placeholder styling */
+  input[type="text"]::placeholder,
+  input[type="number"]::placeholder {
+    color: #999;
+  }
+  
+  /* Focus state for text and number inputs */
+  input[type="text"]:focus,
+  input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Specific styling for file inputs */
+  input[type="file"] {
+    padding: 0;
+    border: none;
+  }
+  
+  /* Styling for table in the list section */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table th, table td {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+  }
+  
+  table img.product-image {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+  }
+  
+  /* Responsive design adjustments */
+  @media (max-width: 600px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .form-container, .list-container {
+      max-width: 100%;
+    }
+  }
+  

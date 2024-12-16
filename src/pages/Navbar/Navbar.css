@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0.5rem 1.5rem; /* Reduced top and bottom padding to make it shorter */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.navbar-title {
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Navbar List Styling */
+.navbar-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  display: inline;
+}
+
+/* Navbar Link Styling */
+.navbar-link {
+  font-family: 'DM Sans', sans-serif;
+  color: black;
+  text-decoration: none;
+  font-weight: bolder;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effects */
+.navbar-link:hover {
+  background-color: #f2c30f;
+  color: #fff;
+  box-shadow: 0 0 10px #fadb5e;
+  transform: translateY(-3px);
+}
+
+/* Button Glow Effect */
+.glow-on-hover {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.glow-on-hover:hover {
+  cursor: pointer;
+}
+
+/* Animation */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #fadb5e;
+  }
+  to {
+    box-shadow: 0 0 20px #fadb5e, 0 0 30px #fadb5e, 0 0 40px #fadb5e, 0 0 50px #fadb5e;
+  }
+}
+
+.navbar-link:hover {
+  animation: glow 1s ease-in-out infinite alternate;
+}

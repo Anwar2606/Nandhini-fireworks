@@ -1,0 +1,32 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  } 
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+  }
+  .dashboard-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .dashboard-box h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .dashboard-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  

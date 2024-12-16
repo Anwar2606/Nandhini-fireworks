@@ -1,0 +1,123 @@
+.custom-select {
+  width: 95%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.custom-select:focus {
+  border-color: #007bff;
+}
+
+.custom-select option {
+  padding: 10px;
+}
+.add-product-page {
+  background-color: #f6f6f6;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: padding-left 0.3s ease; /* Smooth transition when padding changes */
+}
+
+.main-container {
+  display: flex;
+}
+
+.add-product-container {
+  position: relative;
+  left: 300px;
+  background-color: #ffffff;
+  padding: 90px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  width: 200%;
+  max-width: 800px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 250px; /* Adjust this value for sidebar width */
+  transition: all 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 60px; /* Adjust this value for collapsed sidebar width */
+}
+
+/* Ensure content doesn't touch sidebar */
+.add-product-page {
+  padding-left: 250px; /* Default padding when sidebar is open */
+}
+
+.add-product-page.sidebar-collapsed {
+  padding-left: 60px; /* Adjust this when sidebar is collapsed */
+}
+
+@media (max-width: 768px) {
+  /* On small screens, remove sidebar padding */
+  .add-product-page {
+    padding-left: 0;
+  }
+  .sidebar {
+    width: 0; /* Collapse sidebar on small screens */
+  }
+}
+
+  
+  .add-product-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .add-product-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-product-form input,
+  .add-product-form button {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+  }
+  
+  .add-product-form input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .add-product-form button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .add-product-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

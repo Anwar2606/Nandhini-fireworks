@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+button.glow-on-hover {
+  margin: 0.5rem;
+}
+
+button.glow-on-hover:hover {
+  cursor: pointer;
+}
+
+nav {
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,261 @@
+/* ProductList.css */
+
+.product-list-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.product-list-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.product-list-input {
+  width: 100%;
+  max-height: 400px;
+  max-width: 1250px; 
+  padding: 10px 20px;
+  border: 2px solid #4d79ff;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.product-list-input::placeholder {
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.product-list-input:focus {
+  border-color: #4d4dff;
+  background: #f0f8ff; /* Light blue background on focus */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-list-input:focus::placeholder {
+  color: #4d4dff;
+}
+
+.product-list-input:active {
+  transform: scale(1.02);
+}
+
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex; /* Ensure item uses flexbox */
+  align-items: flex-start; /* Align items to the top */
+}
+
+.product-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-info {
+  display: flex;
+  flex: 1;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 5px; /* Add padding around product info */
+}
+
+.product-info:hover {
+  background-color: #f9f9f9;
+}
+
+.product-image {
+  margin-right: 15px; /* Space between image and details */
+  padding: 5px; /* Add padding around the image */
+}
+
+.product-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.product-info:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.products-details {
+  flex: 1;
+  padding: 5px; /* Add padding around the details */
+}
+
+.product-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.product-description {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+.custom-select {
+  width: 95%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  /* For better appearance */
+  -webkit-appearance: none; /* Chrome, Safari, Opera */
+  -moz-appearance: none; /* Firefox */
+  appearance: none;
+}
+
+.custom-select:focus {
+  border-color: #007bff;
+}
+
+.custom-select option {
+  padding: 10px;
+}
+.product-item.expanded .product-description {
+  max-height: 100px; /* Adjust as needed */
+  opacity: 1;
+}
+
+.product-price {
+  font-size: 1em;
+  color: #333;
+  margin-top: 5px;
+}
+
+.product-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  padding: 5px; /* Add padding around actions */
+}
+
+.product-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button, .delete-button {
+  background-color: #4d79ff; 
+  color: #fff; 
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-button {
+  background-color: #4d79ff;
+}
+
+.edit-button:hover {
+  background-color: rgb(40, 186, 40); 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.delete-button {
+  background-color: #ff4d4d; 
+}
+
+.delete-button:hover {
+  background-color: #d43f3a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.edit-button:active, .delete-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.button-row {
+  display: flex;
+  justify-content: space-between; /* Distribute buttons evenly */
+  align-items: center; /* Align buttons vertically */
+  gap: 10px; /* Add space between buttons */
+  margin: 20px 0; /* Add some margin for spacing */
+}
+
+
+.button-row button {
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  perspective: 1000px; /* Needed for 3D effect */
+  transition: transform 0.3s;
+  font-family: 'DM Sans', sans-serif;
+}
+.download-button2 {
+  background-color: blue;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.button-row button:hover {
+  transform: rotateY(15deg) rotateX(15deg);
+}
+
+.button-row button i {
+  margin-right: 8px; 
+}
+
+
+.bulk-new-button {
+ background-color: gray;
+ font-family: 'DM Sans', sans-serif;
+}
+.bulk-upload-button {
+  background-color: rgb(40, 186, 40);
+  font-family: 'DM Sans', sans-serif;
+ }
+.bulk-delete-button {
+ background-color: red;
+ font-family: 'DM Sans', sans-serif;
+
+
+}
+
+.bulk-delete-button i {
+  margin-right: 8px;
+}
+

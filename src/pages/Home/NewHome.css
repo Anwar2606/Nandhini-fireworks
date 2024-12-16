@@ -1,0 +1,195 @@
+/* Main container to hold sidebar and content */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+.main-container {
+    display: flex;
+    min-height: 165vh; /* Ensures full height even if content is less */
+    background-color: #f4f7fe;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #fff;
+    color: #1b2594;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.sidebar.open {
+    width: 250px;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+/* Content area that holds the cards */
+.content-container {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Cards Layout */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: space-between; /* Ensures spacing between cards */
+}
+
+.card {
+    display: flex;
+    background: #fff;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    flex: 1 1 23%; /* Adjust to 25% and add some margin space */
+    box-sizing: border-box;
+    min-width: 250px; /* Ensures minimum width */
+    align-items: center; /* Vertically centers the content */
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    justify-content: center; /* Vertically center text */
+    align-items: flex-start; /* Align text to the left */
+    margin-right: 20px; /* Adds space between text and image */
+    flex: 1;
+}
+
+.text-container h3 {
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    font-size: 16px;
+}
+
+.text-container p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: #666;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center; /* Centers image horizontally */
+    align-items: center; /* Vertically centers the image */
+}
+
+.image-container img {
+    width: 60%; /* Adjust the image width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+}
+
+
+
+
+
+/* Sidebar list and items */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.3s ease;
+}
+
+.sidebar ul li a span {
+    margin-left: 10px;
+    font-weight: 400;
+}
+
+/* Menu button */
+.menu-item {
+    margin-top: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Button styling */
+.menu-item button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #1b2594;
+    color: #333333;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-item button:hover {
+    background-color: #ffcc00;
+    color: #333;
+    transform: scale(1.05);
+}
+.table-container {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 40%; /* Adjust width as needed */
+    float: left; /* Place it to the left */
+}
+
+.top-products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.top-products-table th,
+.top-products-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.top-products-table th {
+    background-color: #f4f7fe;
+    color: #333;
+    font-weight: bold;
+}
+
+.top-products-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.top-products-table td {
+    color: #555;
+}

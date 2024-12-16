@@ -1,0 +1,75 @@
+/* Progress.css */
+.progress-container {
+    height: 80px;
+    width: 280px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center; /* Center align text content */
+    animation: fadeIn 2s ease-in-out;
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: center; /* Center align items vertically */
+    align-items: center; /* Center align items horizontally */
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .circular-progress-bar {
+    width: 150px;
+    margin: 20px auto; /* Center the progress bar horizontally with some vertical margin */
+    animation: progressBarAnimation 1s ease-in-out;
+  }
+  
+  @keyframes progressBarAnimation {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  
+  .revenueTitle {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #333;
+    animation: textFadeIn 1s ease-in-out;
+  }
+  
+  @keyframes textFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .revenueAmount {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+    animation: textFadeIn 1s ease-in-out;
+  }
+  .amount-comparison {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .amountChange {
+    margin-left: 10px;
+    font-size: 1.5em;
+  }
+  
+  .amountChange.green {
+    color: green;
+  }
+  
+  .amountChange.red {
+    color: red;
+  }
+  
+  .revenueAmount {
+    display: flex;
+    align-items: center;
+  }
+  

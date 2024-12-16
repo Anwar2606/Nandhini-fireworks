@@ -1,0 +1,190 @@
+/* General container styles */
+.Edit-page{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+.Page-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+  }
+  
+  /* Input fields */
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .Edit-input1:focus,
+  .Edit-input2:focus {
+    border-color: #4d79ff;
+    box-shadow: 0 0 5px rgba(77, 121, 255, 0.5);
+    outline: none;
+  }
+  
+  .Edit-input3{
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  /* Button styles */
+  .Edit-btn {
+    background-color: #4d79ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .Edit-btn:hover {
+    background-color: #3a63d4;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .Edit-btn:active {
+    transform: scale(0.98);
+  }
+  
+  /* Cancel button specific styling */
+  .Edit-btn:last-of-type {
+    background-color: #ff4d4d;
+  }
+  
+  .Edit-btn:last-of-type:hover {
+    background-color: #d43f3a;
+  }
+  .main-container2 {
+    display: flex;
+    background-color: #f4f7fe;
+  }
+  
+  .sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px;
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .all-bills-page {
+    max-width: 950px;
+    width: 100%;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    position: relative;
+    top:20px;
+    left: 110px;
+    right: 110px;
+    bottom: 60px;
+   
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .date-filter {
+    margin-bottom: 20px;
+  }
+  
+  .bills-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .bills-table th,
+  .bills-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .bills-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .bills-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .bills-table tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  .bills-table tr:last-child {
+    background-color: #d9f7be; /* Color for the last row */
+  }
+  
+  .bills-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .download-icon,
+  .delete-icon {
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px; /* Adds a gap between the icons */
+  }
+  
+  
+  
+  
+    .delete-icon {
+      color: red;
+      margin-right: 0;
+    }
+    .products-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 20px;
+  }
+  .products-table th, .products-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  }
+  .products-table th {
+      background-color: #4CAF50;
+      color: #fff;
+  }
+  .products-table tr:hover {
+      background-color: #f1f1f1;
+  } 
