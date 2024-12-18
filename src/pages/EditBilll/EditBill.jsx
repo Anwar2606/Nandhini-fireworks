@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, updateDoc, doc, Timestamp } from 'firebase/firestore';
-import { db } from '../firebase'; // Adjust the path to your Firebase config
+import { db, firestore } from '../firebase'; // Adjust the path to your Firebase config
 import { FaDownload, FaEdit } from 'react-icons/fa'; // For Edit icon
 import { jsPDF } from 'jspdf'; // Import jsPDF for generating PDFs
 import { 
@@ -14,6 +14,7 @@ import Logo from "../assets/nandhini-logo.png";
 import { TbListNumbers } from "react-icons/tb";
 import './EditBill.css';
 import { formatDate } from 'date-fns';
+import { IoIosPerson } from 'react-icons/io';
 
 // const tamilFontBase64 = "4K644K+N4K6w4K+AIOCuquCviuCuqeCvjSDgrofgrrDgr4HgrrPgrqrgr43grqog4K6a4K+B4K614K6+4K6u4K6/IOCupOCvgeCuo+CviA=="; // Replace with your Base64 font string
 
@@ -46,11 +47,18 @@ const EditBillPage = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
 };
-  const handleEdit = (bill) => {
-    setEditBill(bill);
-    setUpdatedDetails(bill); // Pre-fill the form with current values
-    setIsModalOpen(true);
-  };
+const handleEdit = (bill) => {
+  setUpdatedDetails({ ...bill });
+  setIsModalOpen(true);
+
+  // Calculate initial totals
+  const updatedProducts = bill.productsDetails.map((product) => ({
+    ...product,
+    total: (product.quantity || 0) * (product.saleprice || 0),
+  }));
+  setUpdatedDetails({ ...bill, productsDetails: updatedProducts });
+};
+
 
 //   const handleInputChange = (e, index, field) => {
 //     const { name, value } = e.target;
@@ -90,36 +98,52 @@ const EditBillPage = () => {
 //       grandTotal,
 //     }));
 //   };
-const handleInputChange = (e, index, field) => {
-    const { name, value } = e.target;
-  
-    if (field === 'product') {
-      const updatedProducts = [...updatedDetails.productsDetails];
-      updatedProducts[index][name] = value;
-  
-      // Calculate the total for the updated product
-      if (name === 'quantity' || name === 'saleprice') {
-        const quantity = updatedProducts[index].quantity || 0;
-        const price = updatedProducts[index].saleprice || 0;
-        updatedProducts[index].total = quantity * price;
-      }
-  
-      // Update the state with the new product details
-      setUpdatedDetails((prevDetails) => ({
-        ...prevDetails,
-        productsDetails: updatedProducts,
-      }));
-  
-      // Recalculate totals after the product is updated
-      calculateTotals(updatedProducts);
-    } else {
-      // Handle other inputs like totalAmount, cgstAmount, etc.
-      setUpdatedDetails((prevDetails) => ({
-        ...prevDetails,
-        [name]: value,
-      }));
+const calculateInitialTotals = () => {
+  const updatedProducts = updatedDetails.productsDetails.map((product) => ({
+    ...product,
+    total: (product.quantity || 0) * (product.saleprice || 0),
+  }));
+  setUpdatedDetails({ ...updatedDetails, productsDetails: updatedProducts });
+};
+
+const handleInputChange = (e, index = null, type = null) => {
+  const { name, value } = e.target;
+  if (type === "product" && index !== null) {
+    // Update individual product details
+    const updatedProducts = [...updatedDetails.productsDetails];
+    updatedProducts[index][name] = value;
+
+    // Recalculate total for the product
+    if (name === "quantity" || name === "saleprice") {
+      updatedProducts[index].total =
+        updatedProducts[index].quantity * updatedProducts[index].saleprice || 0;
     }
-  };
+
+    // Update state with recalculated totals
+    const totalAmount = updatedProducts.reduce(
+      (sum, product) => sum + (product.total || 0),
+      0
+    );
+    const cgstAmount = (totalAmount * 0.09).toFixed(2);
+    const sgstAmount = (totalAmount * 0.09).toFixed(2);
+    const grandTotal = (totalAmount + parseFloat(cgstAmount) + parseFloat(sgstAmount)).toFixed(2);
+
+    setUpdatedDetails({
+      ...updatedDetails,
+      productsDetails: updatedProducts,
+      totalAmount,
+      cgstAmount,
+      sgstAmount,
+      grandTotal,
+    });
+  } else {
+    setUpdatedDetails({
+      ...updatedDetails,
+      [name]: value,
+    });
+  }
+};
+
   
   // Function to calculate total, CGST, SGST, and Grand Total
   const calculateTotals = (products) => {
@@ -141,23 +165,24 @@ const handleInputChange = (e, index, field) => {
       grandTotal: grandTotal.toFixed(2),
     }));
   };
+  const handleSubmit = () => {
+    // Find and update the specific bill in the state
+    const updatedBills = bills.map((bill) =>
+      bill.id === updatedDetails.id ? { ...bill, ...updatedDetails } : bill
+    );
   
-  const handleSubmit = async () => {
-    if (editBill && updatedDetails) {
-      try {
-        const billDocRef = doc(db, 'billing', editBill.id);
-        await updateDoc(billDocRef, updatedDetails);
-
-        setBills((prevBills) =>
-          prevBills.map((bill) =>
-            bill.id === editBill.id ? { ...bill, ...updatedDetails } : bill
-          )
-        );
-        setIsModalOpen(false);
-        setEditBill(null);
-      } catch (error) {
-        console.error('Error updating bill:', error.message);
-      }
+    setBills(updatedBills); // Update the bills state
+    setIsModalOpen(false); // Close the modal
+  
+    // Optionally, update the backend
+    updateBillInFirestore(updatedDetails.id, updatedDetails);
+  };
+  const updateBillInFirestore = async (id, updatedDetails) => {
+    try {
+      await firestore.collection("bills").doc(id).update(updatedDetails);
+      alert("Bill updated successfully!");
+    } catch (error) {
+      console.error("Error updating bill:", error);
     }
   };
 
@@ -455,15 +480,44 @@ const downloadAllCopies = (bill) => {
     // Save the final PDF with the invoice number
     doc.save(`Invoice_Copies_${bill.invoiceNumber}.pdf`);
   };
-  const handleRemoveProduct = (productIndex) => {
-    const updatedProducts = updatedDetails.productsDetails.filter(
-      (_, index) => index !== productIndex
+  const handleRemoveProduct = (index) => {
+    const updatedProducts = [...updatedDetails.productsDetails];
+  
+    // Remove the product at the specified index
+    updatedProducts.splice(index, 1);
+  
+    // Check if there are any taxable products remaining
+    const hasTaxableProducts = updatedProducts.length > 0;
+  
+    // Calculate the new total amount
+    const newTotalAmount = updatedProducts.reduce(
+      (sum, product) => sum + product.quantity * product.saleprice,
+      0
     );
+  
+    // Initialize CGST, SGST, and Grand Total
+    let cgstAmount = 0;
+    let sgstAmount = 0;
+    let grandTotal = newTotalAmount;
+  
+    // Only calculate taxes if there are taxable products
+    if (hasTaxableProducts) {
+      cgstAmount = newTotalAmount * 0.09; // 9% CGST
+      sgstAmount = newTotalAmount * 0.09; // 9% SGST
+      grandTotal = newTotalAmount + cgstAmount + sgstAmount;
+    }
+  
+    // Update the state with new values
     setUpdatedDetails((prevDetails) => ({
       ...prevDetails,
       productsDetails: updatedProducts,
+      totalAmount: newTotalAmount,
+      cgstAmount: hasTaxableProducts ? cgstAmount : 0,
+      sgstAmount: hasTaxableProducts ? sgstAmount : 0,
+      grandTotal: hasTaxableProducts ? grandTotal : newTotalAmount,
     }));
   };
+  
   return (
     <div className="edit-bill-page">
       <div className="main-container2">
@@ -527,6 +581,7 @@ const downloadAllCopies = (bill) => {
                 <FaFileInvoice /> {isOpen && <span>Invoice</span>}
               </Link>
             </li>
+            <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
             <li>
               <Link to="/invoice">
                 <TbListNumbers />
@@ -672,26 +727,30 @@ const downloadAllCopies = (bill) => {
                       />
                       <label>Total:</label>
                       <input
-                        type="number"
-                        name="total"
-                        value={product.total || ""}
-                        readOnly
-                      />
-                      <button
-      type="button"
-      onClick={() => handleRemoveProduct(index)}
-      style={{
-        marginLeft: "10px",
-        padding: "5px 10px",
-        backgroundColor: "#ff4d4f",
-        color: "white",
-        border: "none",
-        borderRadius: "4px",
-        cursor: "pointer",
-      }}
-    >
-      Remove
-    </button>
+  type="number"
+  name="total"
+  value={product.total || 0}
+  readOnly
+/>
+
+
+<button
+  type="button"
+  onClick={() => handleRemoveProduct(index)}
+  style={{
+    marginLeft: "10px",
+    padding: "5px 10px",
+    backgroundColor: "#ff4d4f",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  }}
+>
+  Remove
+</button>
+
+
                     </div>
                   ))}
                   <label>Total Amount:</label>

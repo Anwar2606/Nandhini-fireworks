@@ -21,6 +21,8 @@ import InvoiceNumbersPage from './pages/Invoice Numbers/InvoiceNumbersPage';
 import DownloadBillingData from './pages/Download bill/DownloadBillingData';
 import NewHome from './pages/Home/NewHome';
 import EditBillPage from './pages/EditBilll/EditBill';
+import AddCustomer from './pages/Customer/AddCustomer';
+import ShowCustomers from './pages/Show Customers/ShowCustomers';
 
 
 
@@ -74,6 +76,8 @@ const App = () => {
           <Route path="/newhome" element={<NewHome />} />
           <Route path="/" element={<LoginPage />} />
           <Route path="/editbill" element={<EditBillPage />} />
+          <Route path="/showcustomers" element={<ShowCustomers />} />
+          <Route path="/addcustomer" element={<AddCustomer />} />
           <Route path="/grid" element={<Grid />} />
           <Route path="/allbills" element={<AllBillsPage />} />
           <Route path="/graph" element={<GraphComponent />} />

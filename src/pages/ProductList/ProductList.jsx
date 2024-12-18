@@ -17,6 +17,7 @@ import { AiFillProduct } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { TbListNumbers } from "react-icons/tb";
 import Logo from "../assets/nandhini-logo.png";
+import { IoIosPerson } from "react-icons/io";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -294,6 +295,7 @@ return (
             <FaFileInvoice /> {isOpen && <span>Invoice</span>}
           </Link>
         </li>
+        <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
         <li>
           <Link to="/invoice">
             <TbListNumbers />

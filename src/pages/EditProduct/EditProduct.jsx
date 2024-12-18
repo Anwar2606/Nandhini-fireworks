@@ -111,6 +111,7 @@ import { AiFillProduct } from "react-icons/ai";
 import { TbListNumbers } from "react-icons/tb";
 import { MdLogout } from "react-icons/md";
 import Logo from "../assets/nandhini-logo.png";
+import { IoIosPerson } from "react-icons/io";
 
 const EditProductPage = () => {
   const { id } = useParams();
@@ -226,6 +227,7 @@ const EditProductPage = () => {
               <FaFileInvoice /> {isOpen && <span>Invoice</span>}
             </Link>
           </li>
+          <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
           <li>
             <Link to="/invoice">
               <TbListNumbers />

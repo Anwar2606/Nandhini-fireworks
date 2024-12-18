@@ -12,6 +12,7 @@ import {
     Chart as ChartJS, CategoryScale, LinearScale, 
     BarElement, Title, Tooltip, Legend 
 } from "chart.js";
+import { IoIosPerson } from "react-icons/io";
 import { TbListNumbers } from "react-icons/tb";
 import Logo from "../assets/nandhini-logo.png";
 import Card1 from "../assets/card1.png";
@@ -33,6 +34,19 @@ const NewHome = () => {
     const [todaySales, setTodaySales] = useState(0);
     const [monthSales, setMonthSales] = useState(0);
     const [monthlySales, setMonthlySales] = useState(Array(12).fill(0)); // Monthly sales data
+    useEffect(() => {
+        // Function to fetch customer count
+        const fetchCustomerCount = async () => {
+          try {
+            const querySnapshot = await getDocs(collection(db, "customer")); // Replace 'customer' with your collection name
+            setUniqueCustomers(querySnapshot.size); // Set the number of documents
+          } catch (error) {
+            console.error("Error fetching customer data: ", error);
+          }
+        };
+    
+        fetchCustomerCount();
+      }, []);
 
     useEffect(() => {
         const fetchBills = async () => {
@@ -40,7 +54,7 @@ const NewHome = () => {
                 const billsCollection = collection(db, "billing");
                 const billsSnapshot = await getDocs(billsCollection);
     
-                const uniqueNames = new Set();
+               
                 let totalSalesForToday = 0;
                 let totalSalesForMonth = 0;
                 const monthlySalesTemp = Array(12).fill(0);
@@ -73,9 +87,7 @@ const NewHome = () => {
                     const billDateStr = billDate.toISOString().split("T")[0]; // Format as "YYYY-MM-DD"
     
                     // Count unique customers
-                    if (data.customerName) {
-                        uniqueNames.add(data.customerName);
-                    }
+                   
     
                     // Today's sales
                   // Today's sales
@@ -100,7 +112,7 @@ if (billDateStr === todayDate && data.totalAmount) {
     
                 // Update state with computed values
                 setTotalBills(billsSnapshot.size);
-                setUniqueCustomers(uniqueNames.size);
+               
                 setTodaySales(totalSalesForToday);
                 setMonthSales(totalSalesForMonth);
                 setMonthlySales(monthlySalesTemp);
@@ -175,6 +187,7 @@ if (billDateStr === todayDate && data.totalAmount) {
                     <li><Link to="/allbills"><FaEye /> {isOpen && <span>All Bills</span>}</Link></li>
                     <li><Link to="/editbill"><FaEdit /> {isOpen && <span>Edit Bills</span>}</Link></li>
                     <li><Link to="/bill"><FaFileInvoice /> {isOpen && <span>Invoice</span>}</Link></li>
+                     <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
                     <li><Link to="/invoice"><TbListNumbers />{isOpen && <span>Invoice Numbers</span>}</Link></li>
                     <li><Link to="/"><MdLogout /> {isOpen && <span>Logout</span>}</Link></li>
                     <li className="menu-item">

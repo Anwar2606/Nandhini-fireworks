@@ -266,6 +266,7 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png"; // Import your logo
 import "./BulkUpload.css"; 
 import { TbListNumbers } from "react-icons/tb";
+import { IoIosPerson } from "react-icons/io";
 
 const BulkUpload = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -414,6 +415,7 @@ const BulkUpload = () => {
           <li><Link to="/allbills"><FaEye /> {isOpen && <span>All Bills</span>}</Link></li>
           <li><Link to="/editbill"><FaEdit /> {isOpen && <span>Edit Bills</span>}</Link></li>
           <li><Link to="/bill"><FaFileInvoice /> {isOpen && <span>Invoice</span>}</Link></li>
+          <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
           <li><Link to="/invoice"><TbListNumbers />{isOpen && <span>Invoice Numbers</span>}</Link></li>
           <li><Link to="/"><MdLogout /> {isOpen && <span>Logout</span>}</Link></li>
           <li className="menu-item">

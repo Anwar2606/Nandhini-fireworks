@@ -7,6 +7,7 @@ import { MdLogout } from 'react-icons/md';
 import { db } from '../firebase'; 
 import { collection, addDoc } from 'firebase/firestore';
 import './Addproduct.css'; 
+import { IoIosPerson } from 'react-icons/io';
 
 const AddProduct = () => {
   const [isOpen, setIsOpen] = useState(true); // State for sidebar toggle
@@ -83,6 +84,7 @@ const AddProduct = () => {
           <li><Link to="/allbills"><FaEye /> {isOpen && <span>All Bills</span>}</Link></li>
           <li><Link to="/editbill"><FaEdit /> {isOpen && <span>Edit Bills</span>}</Link></li>
           <li><Link to="/bill"><FaFileInvoice /> {isOpen && <span>Invoice</span>}</Link></li>
+          <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
           <li><Link to="/invoice"><TbListNumbers />{isOpen && <span>Invoice Numbers</span>}</Link></li>
           <li><Link to="/"><MdLogout /> {isOpen && <span>Logout</span>}</Link></li>
           <li className="menu-item">

@@ -11,6 +11,7 @@ import Logo from "../assets/nandhini-logo.png";
 import { AiFillProduct } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import { IoIosPerson } from 'react-icons/io';
 
 const InvoiceNumbersPage = () => {
   const [billingInvoices, setBillingInvoices] = useState([]);
@@ -141,6 +142,7 @@ const InvoiceNumbersPage = () => {
               <FaFileInvoice /> {isOpen && <span>Invoice</span>}
             </Link>
           </li>
+          <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
           <li>
             <Link to="/invoice">
               <TbListNumbers />
