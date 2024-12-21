@@ -19,7 +19,7 @@ import Card1 from "../assets/card1.png";
 import Card2 from "../assets/cardnew22.png";
 import Card3 from "../assets/cardnew3.png";
 import Card22 from "../assets/card22.png";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase"; // Ensure Firebase is properly configured
 import SalesComparisonChart from "../Chart/SalesComparisonChart";
 import { Link } from "react-router-dom";
@@ -48,6 +48,44 @@ const NewHome = () => {
         fetchCustomerCount();
       }, []);
 
+      useEffect(() => {
+        const fetchTodaySales = async () => {
+            const today = new Date();
+            const startOfDay = new Date(today.setHours(0, 0, 0, 0)); // Start of today
+            const endOfDay = new Date(today.setHours(23, 59, 59, 999)); // End of today
+    
+            // Query for today's records in the billing collection
+            const todayBillingQuery = query(
+                collection(db, "billing"), // 'billing' is the collection name
+                where("date", ">=", startOfDay),
+                where("date", "<=", endOfDay)
+            );
+    
+            try {
+                const querySnapshot = await getDocs(todayBillingQuery);
+    
+                // Calculate the total amount for today's sales
+                let totalAmount = 0;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    totalAmount += data.totalAmount || 0; // Sum up the totalAmount field
+                });
+    
+                // Log the totalAmount to verify the calculation
+                console.log("Today's Total Sales: ₹", totalAmount);
+    
+                setTodaySales(totalAmount); // Set the total sales for today
+            } catch (error) {
+                console.error("Error fetching today's sales: ", error);
+            }
+        };
+    
+        fetchTodaySales();
+    }, []); // Empty dependency array ensures it runs once when the component mounts
+    
+    
+    
+    
     useEffect(() => {
         const fetchBills = async () => {
             try {
@@ -55,14 +93,12 @@ const NewHome = () => {
                 const billsSnapshot = await getDocs(billsCollection);
     
                
-                let totalSalesForToday = 0;
+            
                 let totalSalesForMonth = 0;
                 const monthlySalesTemp = Array(12).fill(0);
     
-                const today = new Date();
-                const todayDate = today.toISOString().split("T")[0]; // Current date in "YYYY-MM-DD"
-                const currentMonth = today.getMonth();
-                const currentYear = today.getFullYear();
+      
+             
     
                 billsSnapshot.forEach((doc) => {
                     const data = doc.data();
@@ -74,46 +110,23 @@ const NewHome = () => {
                     }
     
                     // Convert Firestore Timestamp or string to Date
-                    let billDate;
-                    if (data.date.toDate) {
-                        billDate = data.date.toDate(); // Firestore Timestamp
-                    } else if (typeof data.date === "string") {
-                        billDate = new Date(data.date); // String date
-                    } else {
-                        console.warn("Invalid date format for document:", doc.id);
-                        return; // Skip invalid date formats
-                    }
+                  
     
-                    const billDateStr = billDate.toISOString().split("T")[0]; // Format as "YYYY-MM-DD"
+                    // const billDateStr = billDate.toISOString().split("T")[0]; // Format as "YYYY-MM-DD"
     
                     // Count unique customers
                    
     
                     // Today's sales
                   // Today's sales
-if (billDateStr === todayDate && data.totalAmount) {
-    totalSalesForToday += Number(data.totalAmount) || 0;
-}
-
+                  
                     // Current month's sales
-                    if (
-                        billDate.getMonth() === currentMonth &&
-                        billDate.getFullYear() === currentYear &&
-                        data.totalAmount
-                    ) {
-                        totalSalesForMonth += Number(data.totalAmount) || 0;
-                    }
-    
-                    // Record sales per month
-                    if (billDate.getFullYear() === currentYear && data.totalAmount) {
-                        monthlySalesTemp[billDate.getMonth()] += Number(data.totalAmount) || 0;
-                    }
+                  
                 });
     
                 // Update state with computed values
                 setTotalBills(billsSnapshot.size);
-               
-                setTodaySales(totalSalesForToday);
+             
                 setMonthSales(totalSalesForMonth);
                 setMonthlySales(monthlySalesTemp);
             } catch (error) {
