@@ -36,6 +36,18 @@
   bottom: 60px;
  
 }
+.share-icon {
+  font-size: 18px;
+  color: #1b73e8;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.share-icon:hover {
+  color: #0056b3;
+}
+
 
 h1 {
   font-size: 24px;

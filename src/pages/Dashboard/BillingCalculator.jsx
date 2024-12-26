@@ -332,7 +332,7 @@ const generatePDF = (copyType, invoiceNumber) => {
     doc.setTextColor(255, 0, 0);  
     // Set font to bold and add the text
     doc.setFont('helvetica', 'bold');
-    doc.text('NANDHINI FIREWORKS', 44, 18);
+    doc.text('NANDHINI FIREWORKS FACTORY', 44, 18);
        doc.setTextColor(0, 0, 0);
        // Reset font to normal
        doc.setFont('helvetica', 'bold');
@@ -636,124 +636,129 @@ const generatePDF = (copyType, invoiceNumber) => {
   
    const totalAmount = cart.reduce((total, item) => total + item.quantity * item.saleprice, 0);
    const pageSizeWidth = doc.internal.pageSize.getWidth();
-   const pageSizeHeight = doc.internal.pageSize.getHeight();
-   
-   const borderMargin = 10;
-   const borderWidth = 0.2; 
-   const additionalTopPadding = 30; 
-   let currentPage = 1;
-   
-   // Draw page border
-   const drawPageBorder = () => {
-   doc.setDrawColor(0, 0, 0); // Border color (black)
-   doc.setLineWidth(borderWidth);
-   doc.rect(borderMargin, borderMargin, pageSizeWidth - borderMargin * 2, pageSizeHeight - borderMargin * 2);
-   };
-   
-   // Check if content will fit on the current page
-   const checkPageEnd = (currentY, additionalHeight, resetY = true) => {
-   if (currentY + additionalHeight > pageSizeHeight - borderMargin) { // Ensure it fits within the page
-    doc.addPage();
-    drawPageBorder();
-    // Increment the page number
-    // Apply additional top padding on the new page if it's the second page or later
-    return resetY ? (currentPage === 1 ? borderMargin + additionalTopPadding : borderMargin) : currentY; // Apply margin for new page or keep currentY
-   }
-   return currentY;
-   };
-   
-   // Initialize the y position after auto table
-   let y = doc.autoTable.previous.finalY + borderMargin; // Start Y position after the auto table
-   
-   // Grand total in words
-   doc.setFont('helvetica', 'bold');
-   doc.setFontSize(10);
-  //  const grandTotalInWords = numberToWords(billingDetails.grandTotal); 
-   const backgroundColor = [255, 182, 193]; // RGB for light pink
-   const textColor = [0, 0, 139]; // RGB for dark blue
-   const marginLeft = borderMargin + 7; // Adjusted to be within margins
-   const padding = 5;
-   const backgroundWidth = 186; // Fixed width for the background rectangle
-   const text = ``;
-   const textDimensions = doc.getTextDimensions(text);
-   const textWidth = textDimensions.w;
-   const textHeight = textDimensions.h;
-   
-   const backgroundX = marginLeft - padding;
-   const backgroundY = y - textHeight - padding;
-   const backgroundHeight = textHeight + padding * 2; // Height including padding
-   
-   // Check if there’s enough space for the content; if not, create a new page
-   y = checkPageEnd(y, backgroundHeight);
-   
-   doc.setTextColor(...textColor);
-   
-   // Add text on top of the background
-   doc.text(text, marginLeft, y);
-   
-   // Continue with "Terms & Conditions" and other content
-   const rectFX = borderMargin + 4; // Adjusted to be within margins
-   const rectFWidth = pageSizeWidth - 2 * rectFX; // Adjust width to fit within page
-   const rectPadding = 4; // Padding inside the rectangle
-   // const lineHeight = 8; // Line height for text
-   const rectFHeight = 13 + lineHeight * 2 + rectPadding * 2; // Header height + 2 lines of text + padding
-   
-   // Ensure there's enough space for the rectangle and text
-   y = checkPageEnd(y + backgroundHeight + 8, rectFHeight);
-   
-   doc.setFont('helvetica', 'normal');
-   doc.rect(rectFX, y, rectFWidth, rectFHeight);
-   
-   // Drawing the "Terms & Conditions" text inside the rectangle
-   doc.setFont('helvetica', 'bold');
-   doc.setTextColor(0, 0, 0);
-   doc.setFontSize(10);
-   
-   let textY = y + rectPadding + 6; // Adjust as needed for vertical alignment
-   doc.text('Terms & Conditions', rectFX + rectPadding, textY);
+const pageSizeHeight = doc.internal.pageSize.getHeight();
 
-   // Adjust vertical position for the following text
-   textY = checkPageEnd(textY + lineHeight, lineHeight, false);
-   doc.setFont('helvetica', 'normal');
-   doc.text('1. Goods once sold will not be taken back.', rectFX + rectPadding, textY);
-   
-   textY = checkPageEnd(textY + lineHeight, lineHeight, false);
-   doc.text('2. All matters Subject to "Sivakasi" jurisdiction only.', rectFX + rectPadding, textY);
-   
-   // Add the certification statement
-   textY = checkPageEnd(textY + lineHeight, lineHeight, false);
-   doc.text('3. Certified that the particulars given above are true and correct.', rectFX + rectPadding, textY);
-   
-   
-   // Add "Authorised Signature" inside the rectangle at the bottom right corner
-   const authSigX = rectFX + rectFWidth - rectPadding - doc.getTextWidth('Authorised Signature');
-   const authSigY = y + rectFHeight - rectPadding;
-   doc.setFont('helvetica', 'bold');
-   doc.text('Authorised Signature', authSigX, authSigY);
-   
-   // Continue with additional content
-   y = checkPageEnd(y + rectFHeight + 8, 40, false);
-   
-   // Reset font and color for additional text
-   doc.setFontSize(12);
-   doc.setTextColor(170, 51, 106);
-   
-   // More content with additional checks
-   y = checkPageEnd(y + 45, 10, false);
-   doc.setFontSize(9);
-   doc.setTextColor(0, 0, 0);
-   
-   y = checkPageEnd(y + 5, 20, false);
-   doc.setFont('helvetica', 'bold');
-   
-   y = checkPageEnd(y + 7, 23, false);
-   doc.setFont('helvetica', 'normal');
-   doc.setTextColor(0, 0, 0);
-   doc.setFontSize(10);
-   
-   // Draw the page border at the end
-   drawPageBorder();
-   
+const borderMargin = 10;
+const borderWidth = 0.2;
+const additionalTopPadding = 30;
+let currentPage = 1;
+
+// Draw page border
+const drawPageBorder = () => {
+  doc.setDrawColor(0, 0, 0); // Border color (black)
+  doc.setLineWidth(borderWidth);
+  doc.rect(borderMargin, borderMargin, pageSizeWidth - borderMargin * 2, pageSizeHeight - borderMargin * 2);
+};
+
+// Check if content will fit on the current page
+const checkPageEnd = (currentY, additionalHeight, resetY = true) => {
+  if (currentY + additionalHeight > pageSizeHeight - borderMargin) { // Ensure it fits within the page
+    if (currentPage > 1) { // Only add a new page if not the first page
+      doc.addPage();
+      drawPageBorder();
+      currentPage++; // Increment the page number
+    }
+    return resetY ? borderMargin + additionalTopPadding : currentY; // Apply margin for new page or keep currentY
+  }
+  return currentY;
+};
+
+// Initialize the y position after auto table
+let y = doc.autoTable.previous.finalY + borderMargin; // Start Y position after the auto table
+
+// Grand total in words
+doc.setFont('helvetica', 'bold');
+doc.setFontSize(10);
+// const grandTotalInWords = numberToWords(billingDetails.grandTotal); 
+const backgroundColor = [255, 182, 193]; // RGB for light pink
+const textColor = [0, 0, 139]; // RGB for dark blue
+const marginLeft = borderMargin + 7; // Adjusted to be within margins
+const padding = 5;
+const backgroundWidth = 186; // Fixed width for the background rectangle
+const text = ``;
+const textDimensions = doc.getTextDimensions(text);
+const textWidth = textDimensions.w;
+const textHeight = textDimensions.h;
+
+const backgroundX = marginLeft - padding;
+const backgroundY = y - textHeight - padding;
+const backgroundHeight = textHeight + padding * 2; // Height including padding
+
+// Check if there’s enough space for the content; if not, create a new page
+y = checkPageEnd(y, backgroundHeight);
+
+// Add text on top of the background
+doc.setTextColor(...textColor);
+doc.text(text, marginLeft, y);
+
+// Continue with "Terms & Conditions" and other content
+const rectFX = borderMargin + 4; // Adjusted to be within margins
+const rectFWidth = pageSizeWidth - 2 * rectFX; // Adjust width to fit within page
+const rectPadding = 4; // Padding inside the rectangle
+const textLineHeight = 8; // Line height for text, renamed here
+const rectFHeight = 6 + textLineHeight * 2 + rectPadding * 2; // Header height + 2 lines of text + padding
+
+// Ensure there's enough space for the rectangle and text
+y = checkPageEnd(y + backgroundHeight + 8, rectFHeight);
+
+doc.setFont('helvetica', 'normal');
+// doc.rect(rectFX, y, rectFWidth, rectFHeight);
+
+// Drawing the "Terms & Conditions" text inside the rectangle
+const yOffset = 5; // Adjust this value to move the rectangle and its content downward
+
+// Draw the rectangle with adjusted y value
+doc.rect(rectFX, y + yOffset, rectFWidth, rectFHeight); // Apply yOffset to the y position
+
+doc.setFont('helvetica', 'bold');
+doc.setTextColor(0, 0, 0);
+doc.setFontSize(10);
+
+// Adjusted y position for the rectangle content
+let textY = y + yOffset + rectPadding + 6; // Apply yOffset here
+doc.text('Terms & Conditions', rectFX + rectPadding, textY);
+
+// Adjust vertical position for the following text
+textY = checkPageEnd(textY + lineHeight, lineHeight, false);
+doc.setFont('helvetica', 'normal');
+doc.text('1. Goods once sold will not be taken back.', rectFX + rectPadding, textY);
+
+textY = checkPageEnd(textY + lineHeight, lineHeight, false);
+doc.text('2. All matters Subject to "Sivakasi" jurisdiction only.', rectFX + rectPadding, textY);
+
+// Add the certification statement
+textY = checkPageEnd(textY + lineHeight, lineHeight, false);
+doc.text('3. Certified that the particulars given above are true and correct.', rectFX + rectPadding, textY);
+
+
+// Add "Authorised Signature" inside the rectangle at the bottom right corner
+const authSigX = rectFX + rectFWidth - rectPadding - doc.getTextWidth('Authorised Signature');
+const authSigY = y + yOffset + rectFHeight - rectPadding; // Apply yOffset here
+doc.setFont('helvetica', 'bold');
+doc.text('Authorised Signature', authSigX, authSigY);
+
+// Continue with additional content
+y = checkPageEnd(y + yOffset + rectFHeight + 8, 40, false); // Apply yOffset here
+
+// Reset font and color for additional text
+doc.setFontSize(12);
+doc.setTextColor(170, 51, 106);
+
+// More content with additional checks
+y = checkPageEnd(y + 45, 10, false);
+doc.setFontSize(9);
+doc.setTextColor(0, 0, 0);
+
+y = checkPageEnd(y + 5, 20, false);
+doc.setFont('helvetica', 'bold');
+
+y = checkPageEnd(y + 7, 23, false);
+doc.setFont('helvetica', 'normal');
+doc.setTextColor(0, 0, 0);
+doc.setFontSize(10);
+
+// Draw the page border at the end
+drawPageBorder();
   
 alert(`Stock updated and Bill generated!`); 
 doc.save(`invoice_${invoiceNumber}_${copyType}.pdf`);

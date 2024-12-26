@@ -6,7 +6,7 @@ import { db } from '../firebase'; // Adjust path if needed
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './AllBillsPage.css'
-import { FaDownload, FaTrash } from 'react-icons/fa';
+import { FaDownload, FaPrint, FaShareAlt, FaTrash } from 'react-icons/fa';
 import Logo from "../assets/nandhini-logo.png";
 import { format, isValid, parseISO } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -408,7 +408,61 @@ doc.text(signatureText, signatureX, signatureY);
       generatePDF(detail, copyType);
     }
   };
-
+  const handleShare = async (bill) => {
+    const pdfUrl = await generatePdfUrl(bill); // Ensure you have a function to generate and return the PDF URL.
+    const shareData = {
+      title: `Invoice #${bill.invoiceNumber}`,
+      text: `Please find the attached invoice for ${bill.customerName}.`,
+      url: pdfUrl,
+    };
+  
+    // Use navigator.share if supported
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        console.log('Shared successfully');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Fallback for WhatsApp and Gmail
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+        `Invoice for ${bill.customerName} (₹${bill.totalAmount}): ${pdfUrl}`
+      )}`;
+      const gmailUrl = `mailto:?subject=${encodeURIComponent(
+        `Invoice #${bill.invoiceNumber}`
+      )}&body=${encodeURIComponent(
+        `Please find the invoice for ${bill.customerName} (₹${bill.totalAmount}): ${pdfUrl}`
+      )}`;
+      
+      const fallbackMessage = 'Sharing is not supported on this browser. Use WhatsApp or Gmail links.';
+  
+      // Prompt user to choose
+      const userChoice = window.confirm(
+        'Choose OK to share via WhatsApp or Cancel to share via Gmail.'
+      );
+  
+      if (userChoice) {
+        window.open(whatsappUrl, '_blank');
+      } else {
+        window.open(gmailUrl, '_blank');
+      }
+    }
+  };
+  
+  // Mock function to generate a PDF URL
+  const generatePdfUrl = async (bill) => {
+    // Logic to generate PDF URL
+    return `https://example.com/invoices/${bill.id}.pdf`;
+  };
+  const handlePrint = (bill) => {
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(`<html><head><title>Invoice</title></head><body>${bill.invoiceNumber}</body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  };
   const handleDelete = async (id) => {
     // Display confirmation dialog
     const isConfirmed = window.confirm("Are you sure you want to delete this bill?");
@@ -538,6 +592,16 @@ doc.text(signatureText, signatureX, signatureY);
                         className="delete-icon"
                         onClick={() => handleDelete(bill.id)}
                       />
+                       <FaShareAlt
+    className="share-icon"
+    onClick={() => handleShare(bill)}
+    style={{ cursor: 'pointer', marginLeft: '10px', color: '#1b73e8' }}
+  />
+   <FaPrint
+                      className="print-icon"
+                      onClick={() => handlePrint(bill)}
+                      style={{ cursor: "pointer", marginLeft: "10px", color: "#ff5722" }}
+                    />
                     </td>
                   </tr>
                 );
