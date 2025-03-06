@@ -7,7 +7,7 @@ import { AiFillProduct } from "react-icons/ai";
 import { IoIosPerson } from "react-icons/io";
 import { TbListNumbers } from "react-icons/tb";
 import { MdLogout } from "react-icons/md";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/nandhini-logo.png"; 
 import './AddTransportDetails.css';
 const AddTransportDetails = () => {
   const [transportData, setTransportData] = useState({
