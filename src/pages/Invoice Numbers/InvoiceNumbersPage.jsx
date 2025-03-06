@@ -4,7 +4,8 @@ import { db } from '../firebase'; // Replace with your Firebase config file
 import { 
   FaHome, FaInfoCircle, FaServicestack, FaEnvelope, 
   FaArrowAltCircleRight, FaArrowCircleLeft, FaEye, 
-  FaEdit, FaFileInvoice 
+  FaEdit, FaFileInvoice, 
+  FaTruck
 } from "react-icons/fa";
 import { TbListNumbers } from "react-icons/tb";
 import Logo from "../assets/nandhini-logo.png";
@@ -143,6 +144,7 @@ const InvoiceNumbersPage = () => {
             </Link>
           </li>
           <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
+           <li><Link to="/showtransport"><FaTruck /> {isOpen && <span>Transport Details</span>}</Link></li>
           <li>
             <Link to="/invoice">
               <TbListNumbers />

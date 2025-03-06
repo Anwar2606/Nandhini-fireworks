@@ -10,6 +10,7 @@ import {
   FaFileInvoice,
   FaArrowCircleLeft,
   FaArrowAltCircleRight,
+  FaTruck,
 } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
@@ -103,6 +104,7 @@ const ShowCustomers = () => {
             </Link>
           </li>
           <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
+           <li><Link to="/showtransport"><FaTruck /> {isOpen && <span>Transport Details</span>}</Link></li>
           <li>
             <Link to="/invoice">
               <TbListNumbers /> {isOpen && <span>Invoice Numbers</span>}

@@ -6,7 +6,7 @@ import { db } from '../firebase'; // Adjust path if needed
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './AllBillsPage.css'
-import { FaDownload, FaPrint, FaShareAlt, FaTrash } from 'react-icons/fa';
+import { FaDownload, FaPrint, FaShareAlt, FaTrash, FaTruck } from 'react-icons/fa';
 import Logo from "../assets/nandhini-logo.png";
 import { format, isValid, parseISO } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -522,6 +522,7 @@ doc.text(signatureText, signatureX, signatureY);
           <li><Link to="/editbill"><FaEdit /> {isOpen && <span>Edit Bills</span>}</Link></li>
           <li><Link to="/bill"><FaFileInvoice /> {isOpen && <span>Invoice</span>}</Link></li>
           <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
+           <li><Link to="/showtransport"><FaTruck /> {isOpen && <span>Transport Details</span>}</Link></li>
           <li><Link to="/invoice"><TbListNumbers /> {isOpen && <span>Invoice Numbers</span>}</Link></li>
           <li><Link to="/"><MdLogout /> {isOpen && <span>Logout</span>}</Link></li>
           <li className="menu-item">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, updateDoc, doc, Timestamp } from 'firebase/firestore';
 import { db, firestore } from '../firebase'; // Adjust the path to your Firebase config
-import { FaDownload, FaEdit } from 'react-icons/fa'; // For Edit icon
+import { FaDownload, FaEdit, FaTruck } from 'react-icons/fa'; // For Edit icon
 import { jsPDF } from 'jspdf'; // Import jsPDF for generating PDFs
 import { 
   FaHome, FaInfoCircle, FaServicestack, FaEnvelope, 
@@ -582,6 +582,7 @@ const downloadAllCopies = (bill) => {
               </Link>
             </li>
             <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
+             <li><Link to="/showtransport"><FaTruck /> {isOpen && <span>Transport Details</span>}</Link></li>
             <li>
               <Link to="/invoice">
                 <TbListNumbers />

@@ -7,17 +7,20 @@ import './BillingCalculator.css'; // Import the CSS file
 import Navbar from '../Navbar/Navbar';
 
 const BillingCalculator = () => {
+  const [searchTermForTransport, setSearchTermForTransport] = useState("");
+  const [transportList, setTransportList] = useState([]);
+  const [filteredTransport, setFilteredTransport] = useState([]);
+  const [transportName, setTransportName] = useState("");
+  const [transportGSTIN, setTransportGSTIN] = useState("");
   const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTermForCustomers, setSearchTermForCustomers] = useState('');
   const [despatchedFrom, setDespatchedFrom] = useState('');
   const [despatchedTo, setDespatchedTo] = useState('');
-  const [transportName, setTransportName] = useState('');
-  const [transportGSTIN, setTransportGSTIN] = useState('');
   const [lrNo, setLrNo] = useState('');
   const [transportDate, setTransportDate] = useState('');
-  const [filteredCustomers, setFilteredCustomers] = useState([]);
+  const [ filteredCustomers, setFilteredCustomers] = useState([]);
   const [cart, setCart] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [category, setCategory] = useState('');
@@ -41,7 +44,6 @@ const BillingCalculator = () => {
   const [customerEmail, setCustomerEmail] = useState('');
   const [isSearching, setIsSearching] = useState(false); // Track if the search term exists
   const [manualInvoiceNumber, setManualInvoiceNumber] = useState('');
-  
   const [businessState, setBusinessState] = useState('YourBusinessState');
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTerm2, setSearchTerm2] = useState('');
@@ -131,8 +133,60 @@ const BillingCalculator = () => {
 
     filterCustomers();
   }, [customers, searchTermForCustomers]);
+  useEffect(() => {
+    const fetchTransport = async () => {
+      let transportQuery = collection(db, "transportDetails");
+
+      if (searchTermForTransport) {
+        transportQuery = query(
+          transportQuery,
+          where("transportName", ">=", searchTermForTransport),
+          where("transportName", "<=", searchTermForTransport + "\uf8ff")
+        );
+      }
+
+      try {
+        const snapshot = await getDocs(transportQuery);
+        const transportData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTransportList(transportData);
+      } catch (error) {
+        console.error("Error fetching transport details:", error);
+      }
+    };
+
+    fetchTransport();
+  }, [searchTermForTransport]);
+
+  // Filter transport details in memory
+  useEffect(() => {
+    const filterTransport = () => {
+      let filtered = transportList;
+
+      if (searchTermForTransport) {
+        filtered = filtered.filter((transport) => {
+          const name = transport.transportName
+            ? transport.transportName.toLowerCase()
+            : "";
+          return name.includes(searchTermForTransport.toLowerCase());
+        });
+      }
+
+      setFilteredTransport(filtered);
+      setIsSearching(searchTermForTransport !== ""); // Update search state
+    };
+
+    filterTransport();
+  }, [transportList, searchTermForTransport]);
 
   
+
+  const handleTransportClick = (transport) => {
+    setTransportName(transport.transportName);
+    setTransportGSTIN(transport.transportGstin);
+  };
   const handleCustomerClick = (customer) => {
     setCustomerName(customer.customerName);
     setCustomerAddress(customer.customerAddress);
@@ -1526,8 +1580,39 @@ return (
 
 
     </div>
+      
+  <div className="customer-search">
+      <input
+        type="text"
+        placeholder="Search Transport"
+        value={searchTermForTransport}
+        onChange={(e) => setSearchTermForTransport(e.target.value)}
+        className="search-input"
+      />
+      {isSearching && (
+        <div className="dropdown">
+          {filteredTransport.length === 0 ? (
+            <div className="dropdown-item">No transport found</div>
+          ) : (
+            filteredTransport.map((transport) => (
+              <div
+                key={transport.id}
+                className="dropdown-item"
+                onClick={() => handleTransportClick(transport)}
+              >
+                <div className="customer-details">
+                  <span>{transport.transportName}</span>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
 
-
+      {/* Display selected transport details */}
+      
+    </div>
+  
       {/* Customer Details Section */}
       <div className="customer-details-toggle">
   {/* <button className="toggle-button" onClick={() => setShowCustomerDetails(!showCustomerDetails)}>

@@ -3,7 +3,8 @@ import "./NewHome.css";
 import { 
     FaHome, FaInfoCircle, FaServicestack, FaEnvelope, 
     FaArrowAltCircleRight, FaArrowCircleLeft, FaEye, 
-    FaEdit, FaFileInvoice 
+    FaEdit, FaFileInvoice, 
+    FaTruck
 } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
@@ -201,6 +202,7 @@ const NewHome = () => {
                     <li><Link to="/editbill"><FaEdit /> {isOpen && <span>Edit Bills</span>}</Link></li>
                     <li><Link to="/bill"><FaFileInvoice /> {isOpen && <span>Invoice</span>}</Link></li>
                      <li><Link to="/showcustomers"><IoIosPerson /> {isOpen && <span>Customers</span>}</Link></li>
+                     <li><Link to="/showtransport"><FaTruck /> {isOpen && <span>Transport Details</span>}</Link></li>
                     <li><Link to="/invoice"><TbListNumbers />{isOpen && <span>Invoice Numbers</span>}</Link></li>
                     <li><Link to="/"><MdLogout /> {isOpen && <span>Logout</span>}</Link></li>
                     <li className="menu-item">

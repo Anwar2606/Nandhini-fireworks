@@ -24,6 +24,9 @@ import EditBillPage from './pages/EditBilll/EditBill';
 import AddCustomer from './pages/Customer/AddCustomer';
 import ShowCustomers from './pages/Show Customers/ShowCustomers';
 import MergePDFs from './pages/Merge Pdf/MergePdf';
+import AddTransportDetails from './pages/Add Transport Details/AddTransportDetails';
+import ShowTransportDetails from './pages/ShowTransport/ShowTransportDetails';
+
 
 
 
@@ -73,10 +76,12 @@ const App = () => {
         <Route path="/todaysales" element={<TodaySales />} />
         <Route path="/invoice" element={<InvoiceNumbersPage />} />
         <Route path="/downloadbill" element={<DownloadBillingData />} />
+        <Route path="/addTransport" element={<AddTransportDetails />}/>
           <Route path="/add" element={<AddProduct />} />
           <Route path="/newhome" element={<NewHome />} />
           <Route path="/" element={<LoginPage />} />
           <Route path="/pdf" element={<MergePDFs />} />
+          <Route path="/showtransport" element={<ShowTransportDetails />} />
           <Route path="/editbill" element={<EditBillPage />} />
           <Route path="/showcustomers" element={<ShowCustomers />} />
           <Route path="/addcustomer" element={<AddCustomer />} />
