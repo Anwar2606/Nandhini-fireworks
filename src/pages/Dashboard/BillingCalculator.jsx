@@ -411,13 +411,16 @@ const generatePDF = (copyType, invoiceNumber) => {
        doc.setFont('helvetica', 'bold');
         doc.text(`TAX INVOICE`, 138, 18);
         doc.text(`${copyType}`,138, 25);
-        doc.text(`Invoice Number: NF-${invoiceNumber}-24`, 138, 32);
+        doc.text(`Invoice Number: NF-${invoiceNumber}-25`, 138, 32);
         doc.setTextColor(0, 0, 0);
    doc.setFont('helvetica', 'normal');
    doc.setFontSize(9);
-   const formattedDate = selectedDate.toLocaleDateString(); 
-   
-   doc.text(`Date: ${formattedDate}`, 138, 39);
+  const day = String(selectedDate.getDate()).padStart(2, "0");
+  const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+  const year = selectedDate.getFullYear(); 
+   const formattedDate = `${day}/${month}/${year}`;
+
+doc.text(`Date: ${formattedDate}`, 138, 39);
    doc.setFont('helvetica', 'bold');
    doc.text('GSTIN: 33CQSPM0068G1ZP', 138, 45);
    
